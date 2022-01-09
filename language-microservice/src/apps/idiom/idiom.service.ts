@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model, Schema } from 'mongoose';
 import { CreateIdiomDto } from './dto/create-idiom.dto';
-// import { UpdateIdiomDto } from './dto/update-idiom.dto';
+import { Idiom, IdiomDocument } from './schemas/idiom.schema';
 
 @Injectable()
 export class IdiomService {
-  create(createIdiomDto: CreateIdiomDto) {
-    return 'This action adds a new idiom';
+
+  constructor(@InjectModel(Idiom.name) private idiomModel: Model<IdiomDocument>) {}
+
+
+  create(createIdiomDto: CreateIdiomDto): Promise<Idiom> {
+    const newIdiom = new this.idiomModel(createIdiomDto);
+    return newIdiom.save();
   }
 
   findAll() {
-    return `This action returns all idiom`;
+    return this.idiomModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} idiom`;
+  findOne(_id: Schema.Types.ObjectId) {
+    return this.idiomModel.findById(_id);
   }
 
   // update(id: number, updateIdiomDto: UpdateIdiomDto) {
   //   return `This action updates a #${id} idiom`;
   // }
 
-  remove(id: number) {
-    return `This action removes a #${id} idiom`;
+  remove(_id: Schema.Types.ObjectId) {
+    return this.idiomModel.findByIdAndDelete(_id);
   }
 }

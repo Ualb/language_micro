@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Schema } from 'mongoose';
 import { CreateCountryDto } from './dto/create-country.dto';
 // import { UpdateCountryDto } from './dto/update-country.dto';
 
@@ -12,8 +13,8 @@ export class CountryService {
     return `This action returns all country`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} country`;
+  findOne(id: Schema.Types.ObjectId) {
+    return '';
   }
 
   // update(id: number, updateCountryDto: UpdateCountryDto) {

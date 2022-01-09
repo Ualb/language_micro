@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Schema } from 'mongoose';
 import { CountryService } from './country.service';
 import { CreateCountryDto } from './dto/create-country.dto';
 // import { UpdateCountryDto } from './dto/update-country.dto';
@@ -17,9 +18,9 @@ export class CountryController {
     return this.countryService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.countryService.findOne(+id);
+  @Get(':_id')
+  findOne(@Param('_id') _id: Schema.Types.ObjectId) {
+    return this.countryService.findOne(_id);
   }
 
   // @Patch(':id')
