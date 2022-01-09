@@ -1,12 +1,17 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common'; 
 import { AppService } from './app.service';
 
-@Controller()
+@Controller("message")
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
+  @Get("/")
+  findAll(): string {
     return this.appService.getHello();
+  }
+
+  @Get("/:nameKey")
+  findOne(@Param("nameKey") nameKey:string): string {
+    return this.appService.getMessageByNameKey(nameKey)
   }
 }
