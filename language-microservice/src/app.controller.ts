@@ -6,12 +6,37 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get("/")
-  findAll(): string {
+  findAllMessages(): string {
     return this.appService.getHello();
   }
 
   @Get("/:nameKey")
-  findOne(@Param("nameKey") nameKey:string): string {
+  findOneMessageByNameKey(@Param("nameKey") nameKey:string): string {
     return this.appService.getMessageByNameKey(nameKey)
   }
+
+  findAllByPlatform() {
+
+  }
+
+  findOneByViewAndPlatform() {
+
+  }
+
+  findOneByComponent() {
+
+  }
+
+  createMessage() {
+
+  }
+
+  updateMessage() {
+
+  }
+
+  deleteMessage() {
+    
+  }
+
 }
