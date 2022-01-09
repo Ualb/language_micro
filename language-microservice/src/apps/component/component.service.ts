@@ -1,11 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { CreateComponentDto } from './dto/create-component.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { CreateComponentDto } from './dtos/create-component.dto';
+import { Component, ComponentDocument } from './schemas/componet.schema';
 // import { UpdateComponentDto } from './dto/update-component.dto';
 
 @Injectable()
 export class ComponentService {
-  create(createComponentDto: CreateComponentDto) {
-    return 'This action adds a new component';
+  constructor(@InjectModel(Component.name) private componentModel:Model<ComponentDocument>){}
+
+  async create(createComponentDto: CreateComponentDto): Promise<Component> {
+    const newComponent = new this.componentModel(createComponentDto);
+    return newComponent.save();
   }
 
   findAll() {

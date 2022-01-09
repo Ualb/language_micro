@@ -1,14 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common'; 
 import { ComponentService } from './component.service';
-import { CreateComponentDto } from './dto/create-component.dto';
+import { Component } from './schemas/componet.schema';
+import { CreateComponentDto } from './dtos/create-component.dto';
 // import { UpdateComponentDto } from './dto/update-component.dto';
 
-@Controller('component')
+@Controller('/api/component')
 export class ComponentController {
   constructor(private readonly componentService: ComponentService) {}
 
   @Post()
-  create(@Body() createComponentDto: CreateComponentDto) {
+  create(@Body() createComponentDto: CreateComponentDto): Promise<Component> {
     return this.componentService.create(createComponentDto);
   }
 

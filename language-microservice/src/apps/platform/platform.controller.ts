@@ -3,7 +3,7 @@ import { PlatformService } from './platform.service';
 import { CreatePlatformDto } from './dto/create-platform.dto';
 // import { UpdatePlatformDto } from './dto/update-platform.dto';
 
-@Controller('platform')
+@Controller('/api/platform')
 export class PlatformController {
   constructor(private readonly platformService: PlatformService) {}
 
@@ -31,4 +31,6 @@ export class PlatformController {
   remove(@Param('id') id: string) {
     return this.platformService.remove(+id);
   }
+
+  
 }

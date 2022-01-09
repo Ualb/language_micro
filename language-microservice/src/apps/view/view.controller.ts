@@ -3,7 +3,7 @@ import { ViewService } from './view.service';
 import { CreateViewDto } from './dto/create-view.dto';
 // import { UpdateViewDto } from './dto/update-view.dto';
 
-@Controller('view')
+@Controller('/api/view')
 export class ViewController {
   constructor(private readonly viewService: ViewService) {}
 

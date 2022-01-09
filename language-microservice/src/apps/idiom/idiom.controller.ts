@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { IdiomService } from './idiom.service';
 import { CreateIdiomDto } from './dto/create-idiom.dto';
 
-@Controller('idiom')
+@Controller('/api/idiom')
 export class IdiomController {
   constructor(private readonly idiomService: IdiomService) {}
 
