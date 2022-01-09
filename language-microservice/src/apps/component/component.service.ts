@@ -1,32 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Schema } from 'mongoose';
 import { CreateComponentDto } from './dtos/create-component.dto';
+import { UpdateComponentDto } from './dtos/update-component.dto';
 import { Component, ComponentDocument } from './schemas/componet.schema';
-// import { UpdateComponentDto } from './dto/update-component.dto';
 
 @Injectable()
 export class ComponentService {
-  constructor(@InjectModel(Component.name) private componentModel:Model<ComponentDocument>){}
+  constructor(@InjectModel(Component.name) private componentModel: Model<ComponentDocument>) { }
 
   async create(createComponentDto: CreateComponentDto): Promise<Component> {
     const newComponent = new this.componentModel(createComponentDto);
     return newComponent.save();
   }
 
-  findAll() {
-    return `This action returns all component`;
+  async findAll(): Promise<Component[]> {
+    return this.componentModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} component`;
+  async findOne(nameKey: string): Promise<Component> {
+    return this.componentModel.findOne({ "nameKey": nameKey }).exec();
   }
 
-  // update(id: number, updateComponentDto: UpdateComponentDto) {
-  //   return `This action updates a #${id} component`;
-  // }
+  async findOneById(_id: Schema.Types.ObjectId): Promise<Component> {
+    return this.componentModel.findById(_id).exec();
+  }
 
-  remove(id: number) {
-    return `This action removes a #${id} component`;
+  update(_id: Schema.Types.ObjectId, updateComponentDto: UpdateComponentDto) {
+    return this.componentModel.findByIdAndUpdate(_id, updateComponentDto);
+  }
+
+  remove(_id: Schema.Types.ObjectId) {
+    return this.componentModel.findByIdAndDelete(_id)
   }
 }
