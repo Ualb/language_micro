@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { Schema } from 'mongoose';
 import { CountryService } from './country.service';
 import { CreateCountryDto } from './dto/create-country.dto';
-// import { UpdateCountryDto } from './dto/update-country.dto';
+import { UpdateCountryDto } from './dto/update-country.dto';
 
 @Controller('/api/country')
 export class CountryController {
@@ -23,13 +23,13 @@ export class CountryController {
     return this.countryService.findOne(_id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateCountryDto: UpdateCountryDto) {
-  //   return this.countryService.update(+id, updateCountryDto);
-  // }
+  @Put(':_id')
+  update(@Param('_id') _id: Schema.Types.ObjectId, @Body() updateCountryDto: UpdateCountryDto) {
+    return this.countryService.update(_id, updateCountryDto);
+  }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.countryService.remove(+id);
+  @Delete(':_id')
+  remove(@Param('_id') _id: Schema.Types.ObjectId) {
+    return this.countryService.remove(_id);
   }
 }

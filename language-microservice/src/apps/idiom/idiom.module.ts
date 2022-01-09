@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [MongooseModule.forFeature([{ name: Idiom.name, schema: IdiomSchema }])],
   controllers: [IdiomController],
-  providers: [IdiomService]
+  providers: [IdiomService], 
+  exports: [IdiomService]
 })
 export class IdiomModule {}

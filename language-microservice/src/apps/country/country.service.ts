@@ -1,27 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { Schema } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model, Schema } from 'mongoose';
 import { CreateCountryDto } from './dto/create-country.dto';
-// import { UpdateCountryDto } from './dto/update-country.dto';
+import { Country } from './entities/country.entity';
+import { CountryDocument } from './schemas/country.schema';
+import { UpdateCountryDto } from './dto/update-country.dto'; 
 
 @Injectable()
 export class CountryService {
-  create(createCountryDto: CreateCountryDto) {
-    return 'This action adds a new country';
+
+  constructor(@InjectModel(Country.name) private countryModel: Model<CountryDocument>) { }
+
+  create(createCountryDto: CreateCountryDto): Promise<Country> {
+    return (new this.countryModel(createCountryDto)).save();
   }
 
   findAll() {
-    return `This action returns all country`;
+    return this.countryModel.find().exec();
   }
 
-  findOne(id: Schema.Types.ObjectId) {
-    return '';
+  findOne(_id: Schema.Types.ObjectId) {
+    return this.countryModel.findById(_id);
   }
 
-  // update(id: number, updateCountryDto: UpdateCountryDto) {
-  //   return `This action updates a #${id} country`;
-  // }
+  update(_id: Schema.Types.ObjectId, updateCountryDto: UpdateCountryDto) {
+    return this.countryModel.findByIdAndUpdate(_id, updateCountryDto);
+  }
 
-  remove(id: number) {
-    return `This action removes a #${id} country`;
+  remove(_id: Schema.Types.ObjectId) {
+    return this.countryModel.findByIdAndRemove(_id);
   }
 }
