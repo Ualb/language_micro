@@ -1,0 +1,1 @@
+This a project for driven the text and the dynamic messages, with the end of solve the internationalization problem in any app 
