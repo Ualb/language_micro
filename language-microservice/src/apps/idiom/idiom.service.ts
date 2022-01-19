@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Schema } from 'mongoose';
 import { CreateIdiomDto } from './dto/create-idiom.dto';
+import { UpdateIdiomDto } from './dto/update-idiom.dto';
 import { Idiom, IdiomDocument } from './schemas/idiom.schema';
 
 @Injectable()
@@ -23,9 +24,9 @@ export class IdiomService {
     return this.idiomModel.findById(_id);
   }
 
-  // update(id: number, updateIdiomDto: UpdateIdiomDto) {
-  //   return `This action updates a #${id} idiom`;
-  // }
+  update(_id: Schema.Types.ObjectId, updateIdiomDto: UpdateIdiomDto) {
+    return this.idiomModel.findByIdAndUpdate(_id, updateIdiomDto);
+  }
 
   remove(_id: Schema.Types.ObjectId) {
     return this.idiomModel.findByIdAndDelete(_id);

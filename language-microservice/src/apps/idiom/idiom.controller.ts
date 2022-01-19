@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { IdiomService } from './idiom.service';
 import { CreateIdiomDto } from './dto/create-idiom.dto';
 import { Schema } from 'mongoose';
+import { UpdateIdiomDto } from './dto/update-idiom.dto';
 
 @Controller('/api/idiom')
 export class IdiomController {
@@ -22,10 +23,10 @@ export class IdiomController {
     return this.idiomService.findOne(_id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateIdiomDto: UpdateIdiomDto) {
-  //   return this.idiomService.update(+id, updateIdiomDto);
-  // }
+  @Put(':_id')
+  update(@Param('_id') _id: Schema.Types.ObjectId, @Body() updateIdiomDto: UpdateIdiomDto) {
+    return this.idiomService.update(_id, updateIdiomDto);
+  }
 
   @Delete(':_id')
   remove(@Param('_id') _id: Schema.Types.ObjectId) {
